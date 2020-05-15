@@ -1,4 +1,5 @@
 import { BaseDeDados } from "./BaseDeDados";
+import { response } from "express";
 
 export class BaseDeDadosReceita extends BaseDeDados {
   private static NOME_DA_TABELA = "Receitas";
@@ -19,5 +20,15 @@ export class BaseDeDadosReceita extends BaseDeDados {
         id_usuario: idUsuario,
       })
       .into(BaseDeDadosReceita.NOME_DA_TABELA);
+  }
+
+  public async pegarReceitaPeloId(id: string): Promise<any> {
+
+    const resultado = await this.getConnection()
+      .select('titulo', 'modo_de_preparo', 'data_de_criacao')
+      .from(BaseDeDadosReceita.NOME_DA_TABELA)
+      .where({ id })
+
+    return resultado[0]
   }
 }

@@ -10,6 +10,7 @@ import { ConectarUsuario } from "./EndPoints/ConectarUsuario";
 import { DadosDoUsuario } from "./EndPoints/DadosDoUsuario";
 import { CriarReceitas } from "./EndPoints/CriarReceitas";
 import { BuscarPerfil } from "./EndPoints/BuscarPerfil";
+import { PegarReceita } from "./EndPoints/PegarReceita";
 
 dotenv.config();
 
@@ -47,3 +48,4 @@ app.post("/recipe", CriarReceitas);
 
 app.get("/user/profile", DadosDoUsuario);
 app.get("/user/", BuscarPerfil);
+app.get("/recipe/", PegarReceita);
