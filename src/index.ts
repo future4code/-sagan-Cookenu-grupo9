@@ -11,6 +11,9 @@ import { DadosDoUsuario } from "./EndPoints/DadosDoUsuario";
 import { CriarReceitas } from "./EndPoints/CriarReceitas";
 import { BuscarPerfil } from "./EndPoints/BuscarPerfil";
 import { PegarReceita } from "./EndPoints/PegarReceita";
+import { SeguirUsuario } from "./EndPoints/SeguirUsuario";
+import { DeixarDeSeguirUsuario } from "./EndPoints/DeixarDeSeguirUsuario";
+import { BuscarReceitas } from "./EndPoints/BuscarReceitas";
 
 dotenv.config();
 
@@ -45,7 +48,10 @@ const server = app.listen(process.env.PORT || 3003, () => {
 app.post("/signup", CriarUsuario);
 app.post("/login", ConectarUsuario);
 app.post("/recipe", CriarReceitas);
+app.post("/user/follow", SeguirUsuario);
+app.post("/user/unfollow", DeixarDeSeguirUsuario);
 
 app.get("/user/profile", DadosDoUsuario);
 app.get("/user/", BuscarPerfil);
 app.get("/recipe/", PegarReceita);
+app.get("/user/feed", BuscarReceitas);

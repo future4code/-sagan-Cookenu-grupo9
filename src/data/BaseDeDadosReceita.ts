@@ -23,12 +23,20 @@ export class BaseDeDadosReceita extends BaseDeDados {
   }
 
   public async pegarReceitaPeloId(id: string): Promise<any> {
-
     const resultado = await this.getConnection()
-      .select('titulo', 'modo_de_preparo', 'data_de_criacao')
+      .select("titulo", "modo_de_preparo", "data_de_criacao")
       .from(BaseDeDadosReceita.NOME_DA_TABELA)
-      .where({ id })
+      .where({ id });
 
-    return resultado[0]
+    return resultado[0];
+  }
+
+  public async pegarReceitaPeloIdusuario(id: string): Promise<any> {
+    const resultado = await this.getConnection()
+      .select("*")
+      .from(BaseDeDadosReceita.NOME_DA_TABELA)
+      .where({ id_usuario: id });
+
+    return resultado[0];
   }
 }
