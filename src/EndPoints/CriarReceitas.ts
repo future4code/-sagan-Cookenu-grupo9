@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { BaseDeDadosReceita } from "../data/BaseDeDadosReceita";
 import { GeradorDeTokens } from "../Serviços/GeradorDeToken";
 import { GeradorDeId } from "../Serviços/GeradorDeId";
+import { BaseDeDadosDeUsuario } from "../data/BaseDeDadosDeUsuario";
 import moment from "moment";
 
 export const CriarReceitas = async (req: Request, res: Response) => {
@@ -22,15 +23,20 @@ export const CriarReceitas = async (req: Request, res: Response) => {
       dadosReceita.tokenUsuario as string
     );
 
+    const baseDeDadosDeUsuario = new BaseDeDadosDeUsuario()
+    const nomeUsuario = await baseDeDadosDeUsuario.buscarDadosAPartirDoId(idUsuario)
+
     const baseDeDadosReceita = new BaseDeDadosReceita();
     await baseDeDadosReceita.criarReceita(
       idReceita,
       idUsuario,
       dadosReceita.titulo,
       dadosReceita.descricao,
-      dataDeCriacaoDaReceita
+      dataDeCriacaoDaReceita,
+      nomeUsuario.nome
     );
     res.status(200).send("Receita criada com sucesso");
+
   } catch (error) {
     res.status(400).send({ message: error.message });
   }

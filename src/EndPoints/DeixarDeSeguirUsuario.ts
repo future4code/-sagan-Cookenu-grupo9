@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { GeradorDeTokens } from "../Serviços/GeradorDeToken";
 import { BaseDeDadosDeUsuario } from "../data/BaseDeDadosDeUsuario";
-import { BaseDeDadosReceita } from "../data/BaseDeDadosReceita";
 import { BaseDeDadosSeguidores } from "../data/BaseDeDadosSeguidores";
 
 export const DeixarDeSeguirUsuario = async (req: Request, res: Response) => {
@@ -36,6 +35,7 @@ export const DeixarDeSeguirUsuario = async (req: Request, res: Response) => {
     await baseDeDadosSeguidores.deixarDeSeguir(idSeguidor, idSeguido);
 
     res.status(200).send("Deixado de seguir");
+    
   } catch (error) {
     res.status(400).send({
       messagem: error.message,
