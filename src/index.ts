@@ -42,6 +42,6 @@ const server = app.listen(process.env.PORT || 3003, () => {
 
 app.post("/cadastrar", CriarUsuario);
 app.post("/logar", ConectarUsuario);
-app.post("/receitas/criar", CriarReceitas);
+app.post("/recipe", CriarReceitas);
 
 app.get("/usuario", DadosDoUsuario);

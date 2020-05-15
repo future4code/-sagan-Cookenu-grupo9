@@ -3,13 +3,16 @@ import { BaseDeDadosReceita } from "../data/BaseDeDadosReceita";
 import { GeradorDeTokens } from "../Serviços/GeradorDeToken";
 import { GeradorDeId } from "../Serviços/GeradorDeId";
 import { BaseDeDados } from "../data/BaseDeDados";
+import moment from 'moment'
 
 export const CriarReceitas = async (req: Request, res: Response) => {
   try {
+
+    const dataDeCriacaoDaReceita: string = moment().format('DD/MM/YYYY')
+
     const dadosReceita = {
       titulo: req.body.titulo,
-      descricao: req.body.descricao,
-      dataDeCriacao: req.body.dataDeCriacao,
+      descricao: req.body.modo_de_preparo,
       tokenUsuario: req.headers.token,
     };
 
@@ -17,7 +20,7 @@ export const CriarReceitas = async (req: Request, res: Response) => {
     const idReceita = geradorDeId.gerador();
 
     const geradorDeToken = new GeradorDeTokens();
-    const idUsuario = geradorDeToken.retornarId(dadosReceita.tokenUsuario);
+    const idUsuario = geradorDeToken.retornarId(dadosReceita.tokenUsuario as string);
 
     const baseDeDadosReceita = new BaseDeDadosReceita();
     await baseDeDadosReceita.criarReceita(
@@ -25,9 +28,12 @@ export const CriarReceitas = async (req: Request, res: Response) => {
       idUsuario,
       dadosReceita.titulo,
       dadosReceita.descricao,
-      dadosReceita.dataDeCriacao
-    );
+      dataDeCriacaoDaReceita
+      );
     res.status(200).send("Receita criada com sucesso");
+
+    console.log(dataDeCriacaoDaReceita)
+
   } catch (error) {
     res.status(400).send({ message: error.message });
   }

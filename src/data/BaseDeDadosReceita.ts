@@ -1,4 +1,5 @@
 import { BaseDeDados } from "./BaseDeDados";
+
 export class BaseDeDadosReceita extends BaseDeDados {
   private static NOME_DA_TABELA = "Receitas";
 
@@ -7,7 +8,7 @@ export class BaseDeDadosReceita extends BaseDeDados {
     idUsuario: string,
     titulo: string,
     modoDePreparo: string,
-    dataDeCriacao: Date
+    dataDeCriacao: string
   ): Promise<void> {
     await this.getConnection()
       .insert({
