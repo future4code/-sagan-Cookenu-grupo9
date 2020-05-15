@@ -20,11 +20,12 @@ export const ConectarUsuario = async (req: Request, res: Response) => {
     if (!comparar) {
       throw new Error("Email ou senha incorreto");
     }
-
+        
     const id = await baseDeDadosDeUsuario.conectarUsuario(dadosDoUsuario.email);
     const geradorDeToken = new GeradorDeTokens();
     const token = geradorDeToken.token(id);
     res.status(200).send({ token: token });
+
   } catch (error) {
     res.status(400).send({
       mensagem: error.message,

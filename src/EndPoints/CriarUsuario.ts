@@ -11,6 +11,7 @@ export const CriarUsuario = async (req: Request, res: Response) => {
       email: req.body.email,
       senha: req.body.senha,
     };
+
     const baseDeDadosDeUsuario = new BaseDeDadosDeUsuario();
     const id = new GeradorDeId().gerador();
 
@@ -26,9 +27,11 @@ export const CriarUsuario = async (req: Request, res: Response) => {
       dadosDoNovoUsuario.nome,
       hash
     );
+    
     res.status(200).send({
       token: token,
     });
+
   } catch (error) {
     res.status(400).send({
       messagem: error.message,

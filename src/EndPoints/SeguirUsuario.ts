@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { GeradorDeTokens } from "../Serviços/GeradorDeToken";
 import { BaseDeDadosDeUsuario } from "../data/BaseDeDadosDeUsuario";
+import { BaseDeDadosSeguidores } from "../data/BaseDeDadosSeguidores";
 
 export const SeguirUsuario = async (req: Request, res: Response) => {
   try {
     const token = req.headers.token;
-
     const idSeguido = req.body.seguido;
 
     const geradorDeToken = new GeradorDeTokens();
@@ -16,10 +16,12 @@ export const SeguirUsuario = async (req: Request, res: Response) => {
       idSeguido
     );
 
-    const itemDuplicado = await baseDeDadosUsuario.verificarDadoDuplicado(
+    const baseDeDadosSeguidores = new BaseDeDadosSeguidores()
+    const itemDuplicado = await baseDeDadosSeguidores.verificarDadoDuplicado(
       idSeguidor,
       idSeguido
     );
+
     if (itemDuplicado) {
       throw new Error("Usuário já segue esse perfil");
     }
@@ -32,7 +34,7 @@ export const SeguirUsuario = async (req: Request, res: Response) => {
       throw new Error("Id inválido");
     }
 
-    await baseDeDadosUsuario.seguir(idSeguidor, idSeguido);
+    await baseDeDadosSeguidores.seguir(idSeguidor, idSeguido);
 
     res.status(200).send({ messagem: "usuario seguido com suceso" });
   } catch (error) {

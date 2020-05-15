@@ -12,6 +12,7 @@ export const DadosDoUsuario = async (req: Request, res: Response) => {
     const baseDeDadosDeUsuario = new BaseDeDadosDeUsuario();
     const informacoes = await baseDeDadosDeUsuario.buscarDadosAPartirDoId(id);
     res.status(200).send(informacoes);
+    
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
