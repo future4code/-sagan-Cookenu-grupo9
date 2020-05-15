@@ -9,6 +9,8 @@ import { GeradorDeTokens } from "./Serviços/GeradorDeToken";
 import { ConectarUsuario } from "./EndPoints/ConectarUsuario";
 import { DadosDoUsuario } from "./EndPoints/DadosDoUsuario";
 import { CriarReceitas } from "./EndPoints/CriarReceitas";
+import { BuscarPerfil } from "./EndPoints/BuscarPerfil";
+import { PegarReceita } from "./EndPoints/PegarReceita";
 
 dotenv.config();
 
@@ -40,8 +42,10 @@ const server = app.listen(process.env.PORT || 3003, () => {
 //   await teste
 // }
 
-app.post("/cadastrar", CriarUsuario);
-app.post("/logar", ConectarUsuario);
-app.post("/receitas/criar", CriarReceitas);
+app.post("/signup", CriarUsuario);
+app.post("/login", ConectarUsuario);
+app.post("/recipe", CriarReceitas);
 
-app.get("/usuario", DadosDoUsuario);
+app.get("/user/profile", DadosDoUsuario);
+app.get("/user/", BuscarPerfil);
+app.get("/recipe/", PegarReceita);
